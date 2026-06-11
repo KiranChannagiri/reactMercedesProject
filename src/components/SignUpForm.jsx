@@ -4,13 +4,15 @@ import { IoIosEye } from "react-icons/io";
 import { IoIosEyeOff } from "react-icons/io";
 import { useContext } from 'react';
 import {toast} from "react-hot-toast"
-import { AuthContext } from '../Context.jsx/AuthContext';
-import Dashboard from '../Pages/Dashboard';
+import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import MBCar from "../assets/images/MBAMGFOneCar.jpg"
+
 const SignUpForm = () => {
     const [showPassword,setShowPassword]=useState(false);
-    const {isLoggedIn,setIsLoggedin}=useContext(AuthContext);
-   let navigate=  useNavigate();
+    const {setIsLoggedin}=useContext(AuthContext);
+    let navigate=  useNavigate();
+
     const[formData,setFormData]=useState({
         firstName:"",
         lastName:"",
@@ -18,6 +20,7 @@ const SignUpForm = () => {
         password:"",
         confirmPassword:""
     })
+
     function changeHandler(){
         setFormData((formData)=>{
             return {
@@ -26,6 +29,7 @@ const SignUpForm = () => {
             }
         })
     }
+
     function submitHandler(event){
         event.preventDefault();
         if(formData.password!=formData.confirmPassword){
@@ -33,94 +37,179 @@ const SignUpForm = () => {
             return;
         }else{
             setIsLoggedin(true);
-            toast.success("account created success fully")
-           let  accountData={
-                ...formData
-            }
-            console.log(accountData);
+            toast.success("account created successfully")
             navigate("/dashboard")
         }
     }
+
   return (
-    <div>
-        <form onSubmit={submitHandler}>
-             {/* fname and lname */}
-            <div>
-                <label htmlFor="fname">First Name <sup>*</sup></label>
-                <input type="text" 
-                id='fname'
-                placeholder='enter the first name'
-                value={formData.firstName}
-                required
-                name="firstName"
-                onChange={changeHandler}
+    <div style={pageStyle}>
+
+        {/* LEFT IMAGE */}
+        <div style={leftStyle}>
+            <img
+                src={MBCar}
+                alt="Mercedes F1 Car"
+                style={imageStyle}
+                width={400}
+                height={400}
+            />
+        </div>
+
+        {/* RIGHT FORM */}
+        <div style={rightStyle}>
+
+            <form onSubmit={submitHandler} style={formStyle}>
+
+                <h2 style={{color:"#00d2be", textAlign:"center"}}>
+                    Create Account
+                </h2>
+
+                {/* name */}
+                <div style={rowStyle}>
+                    <input
+                        type="text"
+                        placeholder="First Name"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={changeHandler}
+                        style={inputStyle}
+                    />
+
+                    <input
+                        type="text"
+                        placeholder="Last Name"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={changeHandler}
+                        style={inputStyle}
+                    />
+                </div>
+
+                {/* email */}
+                <input
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    value={formData.email}
+                    onChange={changeHandler}
+                    style={inputStyle}
                 />
-                <label htmlFor="lname">last Name <sup>*</sup></label>
-                <input type="text" 
-                id='lname'
-                placeholder='enter the last name'
-                value={formData.lastName}
-                required
-                name="lastName"
-                onChange={changeHandler}
-                />
-            </div>
 
-            {/* email */}
-            <div>
-                <label htmlFor="email">Email <sup>*</sup></label>
-                <input type="email" 
-                id='email'
-                placeholder='enter the email'
-                value={formData.email}
-                required
-                name="email"
-                onChange={changeHandler}
-                />
-            </div>
+                {/* password */}
+                <div style={passwordBox}>
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
+                        name="password"
+                        value={formData.password}
+                        onChange={changeHandler}
+                        style={inputStyle}
+                    />
+                    <span onClick={()=>setShowPassword(!showPassword)} style={iconStyle}>
+                        {showPassword ? <IoIosEye/> : <IoIosEyeOff/>}
+                    </span>
+                </div>
 
+                {/* confirm password */}
+                <div style={passwordBox}>
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={changeHandler}
+                        style={inputStyle}
+                    />
+                    <span onClick={()=>setShowPassword(!showPassword)} style={iconStyle}>
+                        {showPassword ? <IoIosEye/> : <IoIosEyeOff/>}
+                    </span>
+                </div>
 
-            {/* password and confirm password  */}
-            <div>
-                <label htmlFor="password">create password <sup>*</sup></label>
-                <input type= {showPassword? "input" : "password"}
-                id='password'
-                placeholder='enter the password'
-                value={formData.password}
-                required
-                name="password"
-                onChange={changeHandler}
-                /> 
-                <span onClick={()=>setShowPassword(!showPassword)}>
-                    {
-                       showPassword  ?  <IoIosEye/> : <IoIosEyeOff/>   
-                    }
-                </span>
-                
+                <button type="submit" style={buttonStyle}>
+                    Create Account
+                </button>
 
-                <label htmlFor="confirmPassword">confirm password <sup>*</sup></label>
-                <input type= {showPassword? "input" : "password"}
-                id='confirmPassword'
-                placeholder='confirm password'
-                value={formData.confirmPassword}
-                required
-                name="confirmPassword"
-                onChange={changeHandler}
-                /> 
-                <span onClick={()=>setShowPassword(!showPassword)}>
-                    {
-                       showPassword  ?  <IoIosEye/> : <IoIosEyeOff/>   
-                    }
-                </span>   
-            </div>
+            </form>
 
-             <div>
-                <button>Create Account</button>
-             </div>
+        </div>
 
-        </form>       
     </div>
   )
 }
 
-export default SignUpForm
+export default SignUpForm;
+
+const pageStyle = {
+    display: "flex",
+    height: "100vh",
+    background: "#0a0a0a",
+    color: "white"
+}
+
+const leftStyle = {
+    flex: 1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#000"
+}
+
+const rightStyle = {
+    flex: 1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+}
+
+const imageStyle = {
+    width: "90%",
+    height: "80%",
+    objectFit: "cover",
+    borderRadius: "10px"
+}
+
+const formStyle = {
+    width: "80%",
+    padding: "20px",
+    background: "#111",
+    borderRadius: "10px"
+}
+
+const rowStyle = {
+    display: "flex",
+    gap: "10px"
+}
+
+const inputStyle = {
+    width: "100%",
+    padding: "10px",
+    margin: "10px 0",
+    background: "#000",
+    border: "1px solid #333",
+    color: "white",
+    borderRadius: "5px"
+}
+
+const passwordBox = {
+    position: "relative"
+}
+
+const iconStyle = {
+    position: "absolute",
+    right: "10px",
+    top: "35%",
+    cursor: "pointer",
+    color: "#00d2be"
+}
+
+const buttonStyle = {
+    width: "100%",
+    padding: "10px",
+    background: "#00d2be",
+    border: "none",
+    borderRadius: "5px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    marginTop: "10px"
+}

@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import {BrowserRouter} from "react-router-dom"
 import {Toaster} from "react-hot-toast"
-import { AuthProvider } from './Context.jsx/AuthContext.jsx'
+import { AuthProvider } from './Context/AuthContext.jsx'
 createRoot(document.getElementById('root')).render(
    
 <BrowserRouter>

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import heroImage from "../assets/images/heroImage.webp"
 const Home = () => {
   return (
@@ -7,8 +7,8 @@ const Home = () => {
         <img
           src={heroImage}
           alt="Mercedes F1"
-          width={{90%}}
-          height={400}
+          width="90%"
+          height={700}
         />
 
         <div className="hero-content">

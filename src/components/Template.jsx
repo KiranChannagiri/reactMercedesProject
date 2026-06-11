@@ -1,7 +1,7 @@
 import React from 'react'
 import SignUpForm from './SignUpForm'
 import LoginForm from './LoginForm'
-import f1car from "../assets/MBAMGFoneCar.jpg"
+import f1car from "../assets/images/MBAMGFoneCar.jpg"
 const Template = ({title,desc1,desc2,formType}) => {
   return (
     <div>

@@ -4,7 +4,7 @@ import { IoIosEye } from "react-icons/io";
 import { IoIosEyeOff } from "react-icons/io";
 import toast from "react-hot-toast"
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../Context.jsx/AuthContext';
+import { AuthContext } from '../Context/AuthContext';
 import { useContext } from 'react';
 const LoginForm = () => {
         const[vibPassword,setVibPass]=useState(false);
