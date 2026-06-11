@@ -1,0 +1,11 @@
+.navlinks{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 500px;
+}
+.navLinkComponenet{
+  display: flex;
+  justify-content: space-around;
+}
