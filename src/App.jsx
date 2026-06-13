@@ -2,7 +2,6 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
-import './App.css'
 import Navbar from "./components/Navbar"
 import { Route,Routes } from 'react-router-dom'
 import Home from "./Pages/Home"
@@ -16,18 +15,18 @@ function App() {
  
 
   return (
-    <div className="appComponent">
+    <div className="app-wrapper">
         <Navbar/>
-
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/aboutus" element={<About/>}/>
-          <Route path="/contact" element={<Contact/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/dashboard" element={<Dashboard/>}/>
-        </Routes>
-
+        <div className="main-content">
+            <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/aboutus" element={<About/>}/>
+              <Route path="/contact" element={<Contact/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/signup" element={<SignUp/>}/>
+              <Route path="/dashboard" element={<Dashboard/>}/>
+            </Routes>
+        </div>
     </div>
   )
 }

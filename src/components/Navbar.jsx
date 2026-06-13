@@ -4,103 +4,63 @@ import logo from "../assets/logo.png"
 import toast from 'react-hot-toast'
 import { useContext } from 'react'
 import { AuthContext } from '../Context/AuthContext'
-
+import { useNavigate } from 'react-router-dom'
 const Navbar = () => {
     const {isLoggedIn,setIsLoggedin}=useContext(AuthContext);
-
+    let navigate =useNavigate();
     return (
-        <div style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "15px 30px",
-            backgroundColor: "#0a0a0a",
-            borderBottom: "1px solid #1f1f1f",
-            fontFamily: "Arial"
-        }}>
+        <nav className="navbar">
+            <div className="container nav-container">
+                <Link to="/" className="nav-logo">
+                    <img
+                        src={logo}
+                        alt="mercedes benz logo"
+                        width={140}
+                        height={40}
+                    />
+                </Link>
 
-        <Link to="/">
-            <img
-                src={logo}
-                alt="mercedes benz logo"
-                width={160}
-                height={50}
-                style={{ cursor: "pointer" }}
-            />
-        </Link>
+                <div className="nav-links">
+                    <Link to="/" className="nav-link">Home</Link>
+                    <Link to="/aboutus" className="nav-link">About Us</Link>
+                    <Link to="/contact" className="nav-link">Contact</Link>
+                </div>
 
-        <nav style={{
-            display: "flex",
-            gap: "25px",
-            alignItems: "center"
-        }}>
-            <div>
-                <Link style={linkStyle} to="/">Home</Link>
-            </div>
-            <div>
-                <Link style={linkStyle} to="/aboutus">About Us</Link>
-            </div>
-            <div>
-                <Link style={linkStyle} to="/contact">Contact</Link>
+                <div className="nav-auth">
+                    { !isLoggedIn &&
+                        <Link to="/login" className="nav-btn btn-outline">
+                             Login
+                        </Link>
+                    }
+
+                    { !isLoggedIn &&
+                        <Link to="/signup" className="nav-btn btn-primary">
+                             Sign Up
+                        </Link>
+                    }
+
+                    { isLoggedIn &&
+                        <button
+                            className="nav-btn btn-outline"
+                            onClick={()=>{
+                                setIsLoggedin(!isLoggedIn);
+                                navigate("/");
+                                toast.success("logged out successfull")
+                            }}
+                        >
+                            Logout
+                        </button>
+                    }
+
+                    { isLoggedIn &&
+                        <Link to="/dashboard" className="nav-btn btn-primary">
+                             Dashboard
+                        </Link>
+                    }
+                </div>
             </div>
         </nav>
-
-        {/* login sign up logout dashboard */}
-        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-
-        { !isLoggedIn &&
-            <Link to="/login">
-                 <button style={btnStyle}>Login</button>
-            </Link>
-        }
-
-        { !isLoggedIn &&
-            <Link to="/signup">
-                 <button style={btnStyle}>Sign Up</button>
-            </Link>
-        }
-
-        { isLoggedIn &&
-            <Link to="/">
-                 <button
-                    style={btnStyle}
-                    onClick={()=>{
-                        setIsLoggedin(!isLoggedIn)
-                        toast.success("logged out successfull")
-                    }}
-                 >
-                    Logout
-                 </button>
-            </Link>
-        }
-
-        { isLoggedIn &&
-            <Link to="/dashboard">
-                 <button style={btnStyle}>Dashboard</button>
-            </Link>
-        }
-
-        </div>
-
-        </div>
     )
 }
 
 export default Navbar
-
-const linkStyle = {
-    color: "white",
-    textDecoration: "none",
-    fontSize: "15px",
-    position: "relative"
-}
-
-const btnStyle = {
-    padding: "8px 12px",
-    border: "1px solid #00d2be",
-    background: "transparent",
-    color: "#00d2be",
-    borderRadius: "5px",
-    cursor: "pointer",
-    transition: "0.3s"
-}
